@@ -34,7 +34,7 @@ class generator:
             Uodating the weights 
         '''
         #calculation of discriminator weights
-        d_weights=d.weights
+        d_weights=d.weight
         d_bias=d.bias
         x=self.forward(z)
         y=d.forward(x)

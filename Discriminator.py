@@ -7,15 +7,18 @@ class discriminator:
         '''
             Assigning random normal weights
         '''
-        self.weight=np.array([np.random.normal() for i in range(len(image)**2)])
+        self.weight=np.array([np.random.normal() for i in range(image.shape[0]**2)])
         self.bias=np.random.normal()
 
-    def forward(self,image):
+    def forward(self,image,noise=False):
         '''
             Get the dot product and then return the sigmoid of that value
         '''
         #the below one may become the cause of error at some instance in the future
-        x=np.dot(self.weight,image.reshape(len(image)**2))
+        if not noise:
+            x=np.dot(self.weight,image.reshape(image.shape[0]**2))+self.bias
+        else:
+            x=np.dot(self.weight,image)+self.bias
         #apply sigmoid function 
         return self.__sigmoid(x)
     
@@ -41,7 +44,8 @@ class discriminator:
             update the weights
             It uses different formulas for noise and real one
         '''
-        dx=self.forward(image)
+        dx=self.forward(image,noise=noise)
+
         #calculation of weights
         if not noise:
             d_weights=-(1-dx)*image
@@ -50,10 +54,7 @@ class discriminator:
             d_weights=dx*image
             d_bias=dx
         #updating the value of weights and bias
-        print(d_weights.shape)
-        #print(learning_rate.shape)
-        print(self.weight.shape)
-        self.weight-=d_weights.reshape(4,)*learning_rate
+        self.weight-=np.array(d_weights).reshape(4,)*learning_rate
         self.bias-=d_bias*learning_rate
         
 
