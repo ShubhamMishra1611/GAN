@@ -3,22 +3,20 @@ import numpy as np
 
 class discriminator:
 
-    def __init__(self,image):
+    def __init__(self,size):
         '''
             Assigning random normal weights
         '''
-        self.weight=np.array([np.random.normal() for i in range(image.shape[0]**2)])
+        self.weight=np.array([np.random.normal() for i in range(size)])
         self.bias=np.random.normal()
 
-    def forward(self,image,noise=False):
+    def forward(self,image):
         '''
             Get the dot product and then return the sigmoid of that value
         '''
         #the below one may become the cause of error at some instance in the future
-        if not noise:
-            x=np.dot(self.weight,image.reshape(image.shape[0]**2))+self.bias
-        else:
-            x=np.dot(self.weight,image)+self.bias
+
+        x=np.dot(self.weight,image)+self.bias
         #apply sigmoid function 
         return self.__sigmoid(x)
     
@@ -44,7 +42,7 @@ class discriminator:
             update the weights
             It uses different formulas for noise and real one
         '''
-        dx=self.forward(image,noise=noise)
+        dx=self.forward(image)
 
         #calculation of weights
         if not noise:
