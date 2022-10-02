@@ -51,7 +51,7 @@ class discriminator:
             d_weights=dx*image
             d_bias=dx
         #updating the value of weights and bias
-        self.weight-=np.array(d_weights).reshape(4,)*learning_rate
+        self.weight-=np.array(d_weights).reshape(9,)*learning_rate
         self.bias-=d_bias*learning_rate
         
 
