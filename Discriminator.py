@@ -31,7 +31,6 @@ class discriminator:
             Calculation of errors
         '''
         pred=self.forward(image)
-        print(pred)
         if noise:
             return -math.log(1-pred)
         else:
