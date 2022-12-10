@@ -6,8 +6,7 @@ class generator:
         '''
             Initializing the weights and bias with normal random numbers
         '''
-        self.weights=np.array([np.random.normal() for i in range(size**2)])
-        self.bias=np.random.normal()
+        self.weights,self.bias=np.array([np.random.normal() for i in range(size**2)]),np.random.normal()
 
     def __sigmoid(self,x):
         '''

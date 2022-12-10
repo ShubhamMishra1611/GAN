@@ -6,7 +6,7 @@ def plot(matrices,rows,cols):
     for axis,image in zip(axes.flatten(),matrices):
         axis.xaxis.set_visible(False)
         axis.yaxis.set_visible(False)
-        im=axis.imshow(1-image.reshape((3,3)),cmap='Greys_r')
+        im=axis.imshow(1-image.reshape((4,4)),cmap='Greys_r')
     return fig,axes
         
         
